@@ -441,7 +441,7 @@ export function App() {
         product: { ...targetProduct, status: '已售出' },
         targetUser: buyer,
       });
-      showToast('🎉 商品已標記為「已售出」！請對本次交易進行互評。');
+      showToast('商品已標記為「已售出」！請對本次交易進行互評。');
     } else {
       showToast(`✓ 商品狀態已更新為「${newStatus}」`);
     }
@@ -656,7 +656,7 @@ export function App() {
     };
 
     setReports((prev) => [newCase, ...prev]);
-    showToast('🚩 檢舉已送交「後台管理系統」，管理員將盡速審核處置！');
+    showToast('檢舉已送交「後台管理系統」，管理員將盡速審核處置！');
   };
 
   const handleResetFilters = () => {
@@ -780,7 +780,7 @@ export function App() {
                   )
                 );
               }
-              showToast('⛔ 已強制下架該違規商品！');
+              showToast('已強制下架該違規商品！');
             }}
             onUpdateUserAccountStatus={(userId, status, warningNote, reportId) => {
               setUsers((prev) =>
@@ -812,7 +812,7 @@ export function App() {
               };
               setAnnouncements((prev) => [nextAnn, ...prev]);
               setBannerIdx(0);
-              showToast('📢 已發布全站廣播公告，前台首頁輪播欄已即時生效！');
+              showToast('已發布全站廣播公告，前台首頁輪播欄已即時生效！');
             }}
             onDeleteAnnouncement={(annId) => {
               setAnnouncements((prev) => prev.filter((a) => a.id !== annId));
@@ -1228,7 +1228,7 @@ export function App() {
                   <div className="max-w-3xl space-y-2 sm:space-y-3">
                     <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                       <span className="px-2 py-0.5 rounded bg-white/15 text-amber-200 text-[11px] sm:text-xs font-bold tracking-wide">
-                        📢 {currentBanner.tag}
+                        {currentBanner.tag}
                       </span>
                       <span className="text-[11px] sm:text-xs font-mono text-stone-300 truncate max-w-full">
                         {currentBanner.metaInfo}
@@ -1381,7 +1381,7 @@ export function App() {
                   </h2>
                 </div>
                 <span className="text-[11px] sm:text-xs text-ink-muted hidden sm:inline">
-                  食品與保養品自動檢核效期，30 天內自動標註「⚠️ 即期警示標籤」
+                  食品與保養品自動檢核效期，30 天內自動標註「即期警示標籤」
                 </span>
               </div>
 
@@ -1410,7 +1410,7 @@ export function App() {
                     特色公益專區
                   </span>
                   <h3 className="text-sm sm:text-base font-bold text-csmu-dark">
-                    🌱 學校/社團二手課外書免費漂書 ＆ 教務處 3C 物資免費贈送
+                    學校/社團二手課外書免費漂書 ＆ 教務處 3C 物資免費贈送
                   </h3>
                 </div>
                 <p className="text-xs text-ink-muted leading-relaxed">
@@ -1740,7 +1740,7 @@ export function App() {
                       onChange={(e) => setOnlyBookCrossingOrFree(e.target.checked)}
                       className="rounded text-csmu focus:ring-csmu"
                     />
-                    <span>🌱 僅看「免費漂書 / 公益贈送 ($0)」</span>
+                    <span>僅看「免費漂書 / 公益贈送 ($0)」</span>
                   </label>
 
                   <span className="ml-auto font-mono text-ink-muted">
@@ -1948,7 +1948,7 @@ export function App() {
                 }}
                 className="px-2.5 py-1 rounded bg-paper-card border border-paper-border hover:border-csmu text-ink"
               >
-                📷 ISBN 掃描上架
+                ISBN 掃描上架
               </button>
               <button
                 type="button"
@@ -1965,7 +1965,7 @@ export function App() {
                 onClick={() => setShowSafetyModal(true)}
                 className="px-2.5 py-1 rounded bg-paper-card border border-paper-border hover:border-csmu text-ink"
               >
-                🛡️ 防詐面交守則
+                防詐面交守則
               </button>
               <button
                 type="button"

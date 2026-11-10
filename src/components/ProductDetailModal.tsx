@@ -304,7 +304,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   </span>
                   {product.isUrgent && (
                     <span className="px-2.5 py-0.5 rounded text-xs font-semibold bg-terracotta-light text-terracotta-dark border border-terracotta/30">
-                      🔥 {product.urgentReason || '急售降價專區'}
+                      {product.urgentReason || '急售降價專區'}
                     </span>
                   )}
                   {product.isBookCrossing && (
@@ -373,7 +373,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     </div>
                     {expiry.isExpiringSoon && (
                       <span className="px-2 py-0.5 rounded bg-amber-800 text-white text-xs font-bold shrink-0">
-                        ⚠️ 即期警示標籤（剩餘 {expiry.daysLeft} 天）
+                        即期警示標籤（剩餘 {expiry.daysLeft} 天）
                       </span>
                     )}
                   </div>
@@ -431,7 +431,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                         key={loc}
                         className="px-2.5 py-1 rounded bg-csmu-light/70 border border-csmu/25 text-xs font-medium text-csmu-dark"
                       >
-                        📍 {loc}
+                        {loc}
                       </span>
                     ))}
                   </div>
@@ -507,7 +507,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   </span>
                   {seller.accountStatus === '警告中' && (
                     <span className="px-2 py-0.5 rounded bg-amber-200 text-amber-900 text-[11px] font-bold">
-                      ⚠️ 曾有未守時紀錄
+                      曾有未守時紀錄
                     </span>
                   )}
                 </div>

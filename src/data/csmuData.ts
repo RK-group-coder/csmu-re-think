@@ -551,7 +551,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     sellerId: 'u-4',
     title: '【南屯好市多團購拆售】Kirkland 科克蘭原味貝果 6入一袋 ＋ 義美厚奶茶 1瓶（即期惜食價）',
     description:
-      '昨天剛去南屯 Costco 採買，兩袋貝果對宿生來說實在太多吃不完！拆售全新未拆封的「藍莓/原味貝果 6入一袋」，另外送一瓶未開封的義美厚奶茶。\n\n⚠️ 注意：貝果與鮮奶茶保存期限到 2026-11-18（還剩 8 天），拿回宿舍直接放冷凍庫可以保存兩個月，早上用烤箱或氣炸鍋烤 3 分鐘超香！',
+      '昨天剛去南屯 Costco 採買，兩袋貝果對宿生來說實在太多吃不完！拆售全新未拆封的「藍莓/原味貝果 6入一袋」，另外送一瓶未開封的義美厚奶茶。\n\n注意：貝果與鮮奶茶保存期限到 2026-11-18（還剩 8 天），拿回宿舍直接放冷凍庫可以保存兩個月，早上用烤箱或氣炸鍋烤 3 分鐘超香！',
     images: [
       'https://images.unsplash.com/photo-1585478259715-876acc5be8eb?auto=format&fit=crop&w=900&q=80',
       'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80',

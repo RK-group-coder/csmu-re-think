@@ -145,7 +145,7 @@ export const MutualReviewModal: React.FC<MutualReviewModalProps> = ({
                 : 'border-transparent text-ink-muted'
             }`}
           >
-            ⚠️ 未完成交易 / 放鳥檢舉
+            未完成交易 / 放鳥檢舉
           </button>
         </div>
 

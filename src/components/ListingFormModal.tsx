@@ -595,7 +595,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
           {category === 'textbook' && (
             <div className="p-4 rounded-xl bg-paper border border-paper-border space-y-3">
               <div className="text-xs font-bold text-csmu flex items-center justify-between">
-                <span>📚 教科書 / 課業學習專屬結構化欄位</span>
+                <span>教科書 / 課業學習專屬結構化欄位</span>
                 <span className="text-ink-faint font-normal">讓同系學弟妹能依學院與科目精準搜尋</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -754,7 +754,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
                 <div className="p-2.5 rounded bg-amber-800 text-white text-xs font-semibold flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 shrink-0" />
                   <span>
-                    即期商品自動提醒：距離到期剩餘 {expiryCheck.daysLeft} 天，上架後商品卡將自動顯示「⚠️ 即期警示標籤」。
+                    即期商品自動提醒：距離到期剩餘 {expiryCheck.daysLeft} 天，上架後商品卡將自動顯示「即期警示標籤」。
                   </span>
                 </div>
               )}
@@ -914,7 +914,7 @@ export const ListingFormModal: React.FC<ListingFormModalProps> = ({
 
           {formError && (
             <div className="p-3 rounded-lg bg-red-100 border border-red-300 text-red-900 text-xs font-bold">
-              ⚠️ {formError}
+              {formError}
             </div>
           )}
 

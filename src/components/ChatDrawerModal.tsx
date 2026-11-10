@@ -393,7 +393,7 @@ export const ChatDrawerModal: React.FC<ChatDrawerModalProps> = ({
                             <AlertOctagon className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
                             <div className="space-y-1">
                               <p className="font-bold text-red-800">
-                                🛡️ 系統安全攔截提醒：偵測到外部連結 (URL) 或高風險字眼！
+                                系統安全攔截提醒：偵測到外部連結 (URL) 或高風險字眼！
                               </p>
                               <p className="leading-relaxed text-[11px] sm:text-xs">
                                 {riskCheck.warningMessage ||
@@ -453,7 +453,7 @@ export const ChatDrawerModal: React.FC<ChatDrawerModalProps> = ({
                           onClick={() => handleSendPhoto(img.url, img.label)}
                           className="px-2 py-1.5 rounded bg-paper-card border border-paper-border hover:border-csmu text-ink text-[11px]"
                         >
-                          📷 {img.label}
+                          {img.label}
                         </button>
                       ))}
                     </div>
