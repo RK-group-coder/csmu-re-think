@@ -151,18 +151,11 @@ export const MutualReviewModal: React.FC<MutualReviewModalProps> = ({
 
         <form onSubmit={handleReviewSubmit} className="p-5 space-y-4">
           {/* Target User Summary */}
-          <div className="p-3 rounded-lg bg-paper border border-paper-border flex items-center gap-3">
-            <img
-              src={targetUser.avatar}
-              alt={targetUser.name}
-              className="w-10 h-10 rounded-full object-cover border border-paper-border"
-            />
-            <div>
-              <p className="text-xs font-bold text-ink">
-                對象：{targetUser.name}（{targetUser.department}）
-              </p>
-              <p className="text-[11px] text-ink-muted">{roleLabel}</p>
-            </div>
+          <div className="p-3 rounded-lg bg-paper border border-paper-border">
+            <p className="text-xs font-bold text-ink">
+              對象：{targetUser.name}（{targetUser.department}）
+            </p>
+            <p className="text-[11px] text-ink-muted">{roleLabel}</p>
           </div>
 
           {mode === 'review' ? (

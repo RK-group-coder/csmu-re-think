@@ -199,12 +199,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               className="flex items-center gap-1 hover:text-csmu transition-colors shrink-0"
               title="點擊查看賣家個人檔案與歷史評價"
             >
-              <img
-                src={seller.avatar}
-                alt={seller.name}
-                className="w-4 h-4 rounded-full object-cover border border-paper-border hidden sm:block"
-              />
-              <span className="truncate max-w-[48px] sm:max-w-[72px]">{seller.name}</span>
+              <span className="truncate max-w-[56px] sm:max-w-[80px]">{seller.name}</span>
               {seller.isGoogleVerified && (
                 <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-csmu shrink-0" />
               )}

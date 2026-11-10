@@ -105,39 +105,32 @@ export const PersonalCenterView: React.FC<PersonalCenterViewProps> = ({
     <section className="space-y-6">
       {/* Top Personal Summary Bar */}
       <div className="p-6 rounded-xl bg-paper-card border border-paper-border flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex items-start gap-4">
-          <img
-            src={currentUser.avatar}
-            alt={currentUser.name}
-            className="w-16 h-16 rounded-full object-cover border-2 border-csmu/40 shrink-0"
-          />
-          <div className="space-y-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <h2 className="text-lg font-bold text-ink">{currentUser.nickname}</h2>
-              <span className="text-xs font-mono text-ink-muted">
-                ({currentUser.email}｜學號 {currentUser.studentIdMasked})
+        <div className="space-y-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="text-lg font-bold text-ink">{currentUser.nickname}</h2>
+            <span className="text-xs font-mono text-ink-muted">
+              ({currentUser.email}｜學號 {currentUser.studentIdMasked})
+            </span>
+          </div>
+          <p className="text-xs text-ink-muted">{currentUser.department}</p>
+          <div className="flex flex-wrap items-center gap-1.5 pt-1">
+            {currentUser.isGoogleVerified ? (
+              <span className="px-2.5 py-0.5 rounded bg-csmu-light text-csmu text-xs font-bold flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                已完成 CSMU Google 帳號驗證（具備買家＋賣家完整權限）
               </span>
-            </div>
-            <p className="text-xs text-ink-muted">{currentUser.department}</p>
-            <div className="flex flex-wrap items-center gap-1.5 pt-1">
-              {currentUser.isGoogleVerified ? (
-                <span className="px-2.5 py-0.5 rounded bg-csmu-light text-csmu text-xs font-bold flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  已完成 CSMU Google 帳號驗證（具備買家＋賣家完整權限）
-                </span>
-              ) : (
-                <span className="px-2.5 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-bold flex items-center gap-1">
-                  <AlertCircle className="w-3.5 h-3.5" />
-                  尚未完成 Google 驗證（目前僅具買家瀏覽權限）
-                </span>
-              )}
-              <span className="px-2.5 py-0.5 rounded bg-paper border border-paper-border text-xs font-mono">
-                評價：
-                {currentUser.ratingCount > 0
-                  ? `${currentUser.ratingAvg.toFixed(1)} ★ (${currentUser.ratingCount}則)`
-                  : '未評分'}
+            ) : (
+              <span className="px-2.5 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-bold flex items-center gap-1">
+                <AlertCircle className="w-3.5 h-3.5" />
+                尚未完成 Google 驗證（目前僅具買家瀏覽權限）
               </span>
-            </div>
+            )}
+            <span className="px-2.5 py-0.5 rounded bg-paper border border-paper-border text-xs font-mono">
+              評價：
+              {currentUser.ratingCount > 0
+                ? `${currentUser.ratingAvg.toFixed(1)} ★ (${currentUser.ratingCount}則)`
+                : '未評分'}
+            </span>
           </div>
         </div>
 

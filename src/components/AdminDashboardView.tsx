@@ -313,11 +313,6 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
               className="p-4 rounded-xl bg-paper-card border border-paper-border flex flex-col sm:flex-row sm:items-center justify-between gap-4"
             >
               <div className="flex items-center gap-3.5">
-                <img
-                  src={u.avatar}
-                  alt={u.name}
-                  className="w-12 h-12 rounded-full object-cover border border-paper-border"
-                />
                 <div className="space-y-0.5">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-bold text-ink">{u.name}</span>

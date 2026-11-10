@@ -54,41 +54,34 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
         {/* Profile Hero */}
         <div className="p-6 bg-paper-card border-b border-paper-border space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-start gap-4">
-              <img
-                src={user.avatar}
-                alt={user.name}
-                className="w-16 h-16 rounded-full object-cover border-2 border-csmu/40 shrink-0"
-              />
-              <div className="space-y-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="text-lg font-bold text-ink">{user.nickname}</h2>
-                  <span className="text-xs font-mono text-ink-muted">
-                    ({user.name}｜學號 {user.studentIdMasked})
-                  </span>
-                </div>
-                <p className="text-xs text-ink-muted">
-                  {user.department}｜Google 校內信箱：{user.email}
-                </p>
+            <div className="space-y-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className="text-lg font-bold text-ink">{user.nickname}</h2>
+                <span className="text-xs font-mono text-ink-muted">
+                  ({user.name}｜學號 {user.studentIdMasked})
+                </span>
+              </div>
+              <p className="text-xs text-ink-muted">
+                {user.department}｜Google 校內信箱：{user.email}
+              </p>
 
-                {/* Integrity Badges */}
-                <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                  {user.badges.map((badge) => (
-                    <span
-                      key={badge}
-                      className="px-2.5 py-0.5 rounded bg-csmu-light text-csmu text-xs font-semibold flex items-center gap-1"
-                    >
-                      <ShieldCheck className="w-3.5 h-3.5" />
-                      {badge}
-                    </span>
-                  ))}
-                  {user.accountStatus !== '正常' && (
-                    <span className="px-2.5 py-0.5 rounded bg-red-100 text-red-900 border border-red-300 text-xs font-bold flex items-center gap-1">
-                      <AlertTriangle className="w-3.5 h-3.5" />
-                      帳號狀態：{user.accountStatus}
-                    </span>
-                  )}
-                </div>
+              {/* Integrity Badges */}
+              <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                {user.badges.map((badge) => (
+                  <span
+                    key={badge}
+                    className="px-2.5 py-0.5 rounded bg-csmu-light text-csmu text-xs font-semibold flex items-center gap-1"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    {badge}
+                  </span>
+                ))}
+                {user.accountStatus !== '正常' && (
+                  <span className="px-2.5 py-0.5 rounded bg-red-100 text-red-900 border border-red-300 text-xs font-bold flex items-center gap-1">
+                    <AlertTriangle className="w-3.5 h-3.5" />
+                    帳號狀態：{user.accountStatus}
+                  </span>
+                )}
               </div>
             </div>
 

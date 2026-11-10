@@ -499,38 +499,31 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           {/* Seller Information Card (賣家資訊卡：評價、聯絡方式、其他在售商品) */}
           <div className="p-5 rounded-xl bg-paper border border-paper-border space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-paper-border">
-              <div className="flex items-start gap-3.5">
-                <img
-                  src={seller.avatar}
-                  alt={seller.name}
-                  className="w-14 h-14 rounded-full object-cover border-2 border-csmu/30 shrink-0"
-                />
-                <div className="space-y-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-base font-bold text-ink">{seller.nickname}</h3>
-                    <span className="text-xs font-mono text-ink-muted">
-                      ({seller.name}｜學號 {seller.studentIdMasked})
+              <div className="space-y-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="text-base font-bold text-ink">{seller.nickname}</h3>
+                  <span className="text-xs font-mono text-ink-muted">
+                    ({seller.name}｜學號 {seller.studentIdMasked})
+                  </span>
+                  {seller.accountStatus === '警告中' && (
+                    <span className="px-2 py-0.5 rounded bg-amber-200 text-amber-900 text-[11px] font-bold">
+                      ⚠️ 曾有未守時紀錄
                     </span>
-                    {seller.accountStatus === '警告中' && (
-                      <span className="px-2 py-0.5 rounded bg-amber-200 text-amber-900 text-[11px] font-bold">
-                        ⚠️ 曾有未守時紀錄
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-xs text-ink-muted">{seller.department}</p>
+                  )}
+                </div>
+                <p className="text-xs text-ink-muted">{seller.department}</p>
 
-                  {/* Integrity Badges (交易誠信徽章) */}
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {seller.badges.map((badge) => (
-                      <span
-                        key={badge}
-                        className="px-2 py-0.5 rounded bg-csmu-light text-csmu text-[11px] font-semibold flex items-center gap-1"
-                      >
-                        <ShieldCheck className="w-3 h-3" />
-                        {badge}
-                      </span>
-                    ))}
-                  </div>
+                {/* Integrity Badges (交易誠信徽章) */}
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {seller.badges.map((badge) => (
+                    <span
+                      key={badge}
+                      className="px-2 py-0.5 rounded bg-csmu-light text-csmu text-[11px] font-semibold flex items-center gap-1"
+                    >
+                      <ShieldCheck className="w-3 h-3" />
+                      {badge}
+                    </span>
+                  ))}
                 </div>
               </div>
 

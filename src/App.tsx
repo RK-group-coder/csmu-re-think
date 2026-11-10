@@ -981,12 +981,7 @@ export function App() {
                   onClick={() => setShowAvatarMenu(!showAvatarMenu)}
                   className="flex items-center gap-1.5 sm:gap-2 pl-1 pr-2 sm:pl-1.5 sm:pr-2.5 py-1 rounded-full border border-paper-border bg-paper hover:border-csmu transition-colors"
                 >
-                  <img
-                    src={currentUser.avatar}
-                    alt={currentUser.name}
-                    className="w-7 h-7 rounded-full object-cover border border-csmu/40"
-                  />
-                  <div className="text-left hidden sm:block">
+                  <div className="text-left">
                     <p className="text-xs font-bold text-ink leading-none">
                       {currentUser.name}
                     </p>
@@ -1034,7 +1029,7 @@ export function App() {
                       }}
                       className="w-full px-4 py-2 text-left hover:bg-paper-muted flex items-center justify-between font-medium text-ink"
                     >
-                      <span>📦 我的管理（上架中 / 已售出 / 追蹤清單）</span>
+                      <span>我的管理（上架中 / 已售出 / 追蹤清單）</span>
                     </button>
 
                     <button
@@ -1045,7 +1040,7 @@ export function App() {
                       }}
                       className="w-full px-4 py-2 text-left hover:bg-paper-muted flex items-center justify-between font-medium text-ink"
                     >
-                      <span>💬 私訊訊息匣</span>
+                      <span>私訊訊息匣</span>
                       <span className="px-1.5 py-0.5 rounded bg-terracotta text-white font-mono text-[10px]">
                         {chats.length} 筆對話
                       </span>
@@ -1060,7 +1055,7 @@ export function App() {
                       }}
                       className="w-full px-4 py-2 text-left hover:bg-paper-muted flex items-center justify-between font-medium text-ink"
                     >
-                      <span>🔔 關鍵字訂閱 ＆ 註冊信箱通知</span>
+                      <span>關鍵字訂閱 ＆ 註冊信箱通知</span>
                       <span className="px-1.5 py-0.5 rounded bg-csmu-light text-csmu font-mono text-[10px]">
                         {emailLogs.length} 封信
                       </span>
@@ -1075,7 +1070,7 @@ export function App() {
                       }}
                       className="w-full px-4 py-2 text-left hover:bg-paper-muted flex items-center justify-between font-medium text-ink"
                     >
-                      <span>⚙️ 個人設定、Google 身分驗證狀態</span>
+                      <span>個人設定、Google 身分驗證狀態</span>
                     </button>
 
                     <button
@@ -1086,7 +1081,7 @@ export function App() {
                       }}
                       className="w-full px-4 py-2 text-left hover:bg-paper-muted flex items-center justify-between font-medium text-csmu"
                     >
-                      <span>👤 瀏覽個人頁面（公開評價與檔案）</span>
+                      <span>瀏覽個人頁面（公開評價與檔案）</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -1135,7 +1130,7 @@ export function App() {
                         }}
                         className="px-2.5 py-1 rounded text-left text-[11px] font-medium bg-paper-card border border-paper-border hover:border-csmu"
                       >
-                        🔐 開啟 Google 校內信箱驗證視窗
+                        開啟 Google 校內信箱驗證視窗
                       </button>
                     </div>
                   </div>
@@ -1834,7 +1829,7 @@ export function App() {
                 )
               );
               showToast(
-                `💬 已向求購人「${post.requesterName}」發送站內私訊與信箱通知！`
+                `已向求購人「${post.requesterName}」發送站內私訊與信箱通知！`
               );
               setShowChatModal(true);
             }}
@@ -1882,7 +1877,7 @@ export function App() {
               };
               setSubscriptions((prev) => [newSub, ...prev]);
               showToast(
-                `🔔 已新增關鍵字「${keyword}」訂閱！有賣家上架將自動寄信至 ${currentUser.email}`
+                `已新增關鍵字「${keyword}」訂閱！有賣家上架將自動寄信至 ${currentUser.email}`
               );
             }}
             onRemoveSubscription={(subId) => {
@@ -1963,7 +1958,7 @@ export function App() {
                 }}
                 className="px-2.5 py-1 rounded bg-paper-card border border-paper-border hover:border-csmu text-ink"
               >
-                🔔 關鍵字信箱訂閱
+                關鍵字信箱訂閱
               </button>
               <button
                 type="button"
@@ -1978,7 +1973,7 @@ export function App() {
                 className="px-2.5 py-1 rounded bg-stone-800 text-stone-200 hover:text-white border border-stone-700 font-semibold"
                 title="管理員獨立後台網址 (/admin)"
               >
-                ⚙️ 管理員獨立後台 (/admin)
+                管理員獨立後台 (/admin)
               </button>
             </div>
           </div>
@@ -2242,11 +2237,6 @@ export function App() {
                   }}
                   className="w-full p-3 rounded-lg bg-paper hover:bg-csmu-light/60 border border-paper-border hover:border-csmu flex items-center gap-3 text-left transition-colors"
                 >
-                  <img
-                    src={u.avatar}
-                    alt={u.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
                   <div className="min-w-0 flex-1">
                     <p className="text-xs font-bold text-ink">
                       使用 {u.name} 的校內 Google 帳號繼續
