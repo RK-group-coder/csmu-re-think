@@ -141,9 +141,6 @@ export const ChatDrawerModal: React.FC<ChatDrawerModalProps> = ({
             <MessageSquare className="w-4 h-4 text-csmu shrink-0 hidden sm:block" />
             <h2 className="text-sm sm:text-base font-bold text-ink truncate">
               站內私訊訊息匣
-              <span className="hidden sm:inline font-normal text-xs text-ink-muted ml-1">
-                （無金流・安全校園面交相談）
-              </span>
             </h2>
           </div>
           <button
@@ -156,29 +153,11 @@ export const ChatDrawerModal: React.FC<ChatDrawerModalProps> = ({
         </div>
 
         {/* Anti-Scam Persistent Banner */}
-        <div className="px-3.5 sm:px-4 py-1.5 sm:py-2 bg-amber-100/90 border-b border-amber-300 text-amber-950 text-[11px] sm:text-xs flex items-center justify-between gap-2 shrink-0">
-          <div className="flex items-center gap-1.5 font-medium truncate">
-            <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-terracotta shrink-0" />
-            <span className="truncate">
-              防詐警示：請勿點擊外部點數卡或假賣貨便連結，建議正心樓/誠愛樓/杏樓公開面交。
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={() => {
-              if (activeThread) {
-                setMobileShowList(false);
-                onSendMessage(
-                  activeThread.id,
-                  '同學你好，我無法面交，請點這個外部連結完成實名認證領款 https://fake-711-verify.com/pay'
-                );
-              }
-            }}
-            className="px-2 py-0.5 rounded bg-amber-900/15 hover:bg-amber-900/25 text-amber-950 font-semibold text-[10px] sm:text-[11px] shrink-0"
-            title="點擊測試傳送含外部網址的訊息，觀察系統自動攔截與安全提醒"
-          >
-            ⚡ 測試外部連結警告
-          </button>
+        <div className="px-3.5 sm:px-4 py-1.5 sm:py-2 bg-amber-100/90 border-b border-amber-300 text-amber-950 text-[11px] sm:text-xs flex items-center gap-1.5 font-medium shrink-0">
+          <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-terracotta shrink-0" />
+          <span className="truncate">
+            防詐警示：請勿點擊外部點數卡或假賣貨便連結，建議正心樓/誠愛樓/杏樓公開面交。
+          </span>
         </div>
 
         {/* Main Split Layout */}

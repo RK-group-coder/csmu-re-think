@@ -162,57 +162,57 @@ export const PersonalCenterView: React.FC<PersonalCenterViewProps> = ({
       </div>
 
       {/* Sub-navigation Tabs */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-paper-border pb-3">
+      <div className="flex overflow-x-auto no-scrollbar gap-2 border-b border-paper-border pb-2.5 sm:pb-3">
         <button
           type="button"
           onClick={() => setActiveTab('listings')}
-          className={`px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 transition-colors ${
+          className={`px-3.5 sm:px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 sm:gap-2 shrink-0 transition-colors ${
             activeTab === 'listings'
               ? 'bg-csmu text-white'
               : 'bg-paper-card border border-paper-border text-ink-muted hover:text-ink'
           }`}
         >
           <Package className="w-4 h-4" />
-          <span>我的商品管理 ({myProducts.length})</span>
+          <span>我的商品 ({myProducts.length})</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('favorites')}
-          className={`px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 transition-colors ${
+          className={`px-3.5 sm:px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 sm:gap-2 shrink-0 transition-colors ${
             activeTab === 'favorites'
               ? 'bg-csmu text-white'
               : 'bg-paper-card border border-paper-border text-ink-muted hover:text-ink'
           }`}
         >
           <Heart className="w-4 h-4" />
-          <span>追蹤收藏清單 ({likedProducts.length})</span>
+          <span>追蹤收藏 ({likedProducts.length})</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('subscriptions')}
-          className={`px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 transition-colors ${
+          className={`px-3.5 sm:px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 sm:gap-2 shrink-0 transition-colors ${
             activeTab === 'subscriptions'
               ? 'bg-csmu text-white'
               : 'bg-paper-card border border-paper-border text-ink-muted hover:text-ink'
           }`}
         >
           <Bell className="w-4 h-4" />
-          <span>關鍵字訂閱 ＆ 註冊信箱通知 ({subscriptions.length})</span>
+          <span>關鍵字訂閱 ({subscriptions.length})</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('settings')}
-          className={`px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2 transition-colors ${
+          className={`px-3.5 sm:px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 sm:gap-2 shrink-0 transition-colors ${
             activeTab === 'settings'
               ? 'bg-csmu text-white'
               : 'bg-paper-card border border-paper-border text-ink-muted hover:text-ink'
           }`}
         >
           <Settings className="w-4 h-4" />
-          <span>個人設定 ＆ Google 身分驗證狀態</span>
+          <span>設定 ＆ 驗證狀態</span>
         </button>
       </div>
 

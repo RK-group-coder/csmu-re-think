@@ -34,6 +34,7 @@ interface AdminDashboardViewProps {
   onResolveReport: (reportId: string, status: ReportCase['status']) => void;
   onAddAnnouncement: (ann: Omit<AnnouncementBanner, 'id'>) => void;
   onDeleteAnnouncement: (annId: string) => void;
+  onReturnToMain?: () => void;
 }
 
 export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
@@ -46,6 +47,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
   onResolveReport,
   onAddAnnouncement,
   onDeleteAnnouncement,
+  onReturnToMain,
 }) => {
   const [activeTab, setActiveTab] = useState<'reports' | 'users' | 'broadcast'>(
     'reports'
@@ -81,62 +83,122 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
   return (
     <section className="space-y-6">
       {/* Admin Top Header */}
-      <div className="p-6 rounded-xl bg-ink text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-5 sm:p-6 rounded-xl bg-ink text-white flex flex-col md:flex-row md:items-center justify-between gap-4 border border-stone-800 shadow-xl">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded bg-terracotta text-white text-xs font-bold">
-              SYSTEM ADMIN
+              SYSTEM ADMIN CONSOLE
             </span>
-            <h2 className="text-xl font-bold">
-              後台管理與系統營運中心
-            </h2>
+            <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-stone-800 text-stone-300 border border-stone-700">
+              獨立後台網址：/admin
+            </span>
           </div>
+          <h2 className="text-xl sm:text-2xl font-bold">
+            大慶拾物所｜管理員後台營運中心
+          </h2>
           <p className="text-xs text-stone-300">
-            管理檢舉案件審核、違規商品強制下架、帳號停權/警告機制、以及首頁全站廣播公告發布。
+            具備違規商品強制下架、帳號停權/警告機制、檢舉案件即時審核與全站首頁廣播公告發布功能。
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 text-xs font-bold">
+        {onReturnToMain && (
+          <button
+            type="button"
+            onClick={onReturnToMain}
+            className="px-4 py-2 rounded-lg bg-csmu hover:bg-csmu-dark text-white text-xs font-bold flex items-center gap-1.5 transition-colors shrink-0"
+          >
+            <span>返回前台二手交換平台</span>
+            <span>→</span>
+          </button>
+        )}
+      </div>
+
+      {/* 4 Stat Overview Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="p-4 rounded-xl bg-paper-card border border-paper-border space-y-1">
+          <span className="text-xs text-ink-muted">待審核檢舉案件</span>
+          <div className="flex items-baseline justify-between">
+            <span className="font-mono text-2xl font-bold text-terracotta">
+              {reports.filter((r) => r.status === '待審核').length}
+            </span>
+            <span className="text-[11px] text-ink-faint">件待處理</span>
+          </div>
+        </div>
+
+        <div className="p-4 rounded-xl bg-paper-card border border-paper-border space-y-1">
+          <span className="text-xs text-ink-muted">全站上架中商品</span>
+          <div className="flex items-baseline justify-between">
+            <span className="font-mono text-2xl font-bold text-csmu">
+              {products.filter((p) => p.status === '上架中').length}
+            </span>
+            <span className="text-[11px] text-ink-faint">總計 {products.length} 件</span>
+          </div>
+        </div>
+
+        <div className="p-4 rounded-xl bg-paper-card border border-paper-border space-y-1">
+          <span className="text-xs text-ink-muted">註冊學生與帳號狀態</span>
+          <div className="flex items-baseline justify-between">
+            <span className="font-mono text-2xl font-bold text-ink">
+              {users.length}
+            </span>
+            <span className="text-[11px] text-amber-700 font-semibold">
+              {users.filter((u) => u.accountStatus !== '正常').length} 個帳號受處分
+            </span>
+          </div>
+        </div>
+
+        <div className="p-4 rounded-xl bg-paper-card border border-paper-border space-y-1">
+          <span className="text-xs text-ink-muted">首頁輪播公告</span>
+          <div className="flex items-baseline justify-between">
+            <span className="font-mono text-2xl font-bold text-ink">
+              {announcements.length}
+            </span>
+            <span className="text-[11px] text-csmu font-semibold">即時發布生效</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Admin Module Switcher */}
+      <div className="flex overflow-x-auto no-scrollbar sm:flex-wrap items-center gap-1.5 sm:gap-2 text-xs font-bold pb-0.5">
           <button
             type="button"
             onClick={() => setActiveTab('reports')}
-            className={`px-4 py-2 rounded-lg flex items-center gap-1.5 transition-colors ${
+            className={`px-3 sm:px-4 py-2 rounded-lg flex items-center gap-1.5 shrink-0 transition-colors ${
               activeTab === 'reports'
                 ? 'bg-terracotta text-white'
                 : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
             }`}
           >
             <Flag className="w-4 h-4" />
-            <span>檢舉與違規商品強制下架 ({reports.length})</span>
+            <span>檢舉與下架 ({reports.length})</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveTab('users')}
-            className={`px-4 py-2 rounded-lg flex items-center gap-1.5 transition-colors ${
+            className={`px-3 sm:px-4 py-2 rounded-lg flex items-center gap-1.5 shrink-0 transition-colors ${
               activeTab === 'users'
                 ? 'bg-terracotta text-white'
                 : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
             }`}
           >
             <UserX className="w-4 h-4" />
-            <span>帳號停權 / 警告機制 ({users.length})</span>
+            <span>帳號停權/警告 ({users.length})</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveTab('broadcast')}
-            className={`px-4 py-2 rounded-lg flex items-center gap-1.5 transition-colors ${
+            className={`px-3 sm:px-4 py-2 rounded-lg flex items-center gap-1.5 shrink-0 transition-colors ${
               activeTab === 'broadcast'
                 ? 'bg-terracotta text-white'
                 : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
             }`}
           >
             <Megaphone className="w-4 h-4" />
-            <span>全站廣播公告發布 ({announcements.length})</span>
+            <span>全站廣播發布 ({announcements.length})</span>
           </button>
         </div>
-      </div>
 
       {/* Tab 1: Reports & Forced Unlisting */}
       {activeTab === 'reports' && (

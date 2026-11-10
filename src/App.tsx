@@ -74,8 +74,20 @@ import { WantedBoardView } from './components/WantedBoardView';
 import { PersonalCenterView } from './components/PersonalCenterView';
 import { AdminDashboardView } from './components/AdminDashboardView';
 
-type MainView = 'home' | 'browse' | 'wanted' | 'personal' | 'admin';
+type MainView = 'home' | 'browse' | 'wanted' | 'personal';
 type SortOption = 'latest' | 'price_asc' | 'price_desc' | 'most_liked';
+
+const checkIsAdminPath = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  const path = window.location.pathname.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  return (
+    path === '/admin' ||
+    path.startsWith('/admin/') ||
+    hash === '#/admin' ||
+    hash === '#admin'
+  );
+};
 
 function loadStored<T>(key: string, fallback: T): T {
   try {
@@ -150,6 +162,31 @@ export function App() {
   >('listings');
   const [showAvatarMenu, setShowAvatarMenu] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+
+  // URL Routing for Dedicated Admin Portal (/admin)
+  const [isAdminRoute, setIsAdminRoute] = useState<boolean>(checkIsAdminPath);
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setIsAdminRoute(checkIsAdminPath());
+    };
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
+  }, []);
+
+  const navigateTo = (path: string) => {
+    try {
+      window.history.pushState({}, '', path);
+    } catch {
+      window.location.hash = path.startsWith('/') ? '#' + path : path;
+    }
+    setIsAdminRoute(checkIsAdminPath());
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Carousel Banner Index
   const [bannerIdx, setBannerIdx] = useState(0);
@@ -678,6 +715,117 @@ export function App() {
     onlyBookCrossingOrFree,
   ].filter(Boolean).length;
 
+  // Standalone Admin Route (/admin) - Completely separate dedicated URL
+  if (isAdminRoute) {
+    return (
+      <div className="min-h-screen flex flex-col bg-paper text-ink">
+        {/* Dedicated Admin Portal Header */}
+        <header className="bg-ink text-white border-b border-stone-800 sticky top-0 z-30 shadow-md">
+          <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-terracotta text-white flex items-center justify-center font-serif font-bold text-xs shadow">
+                後台
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-base sm:text-lg font-bold text-white tracking-tight">
+                    大慶拾物所｜管理員後台管理系統
+                  </h1>
+                  <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-stone-800 text-amber-300 border border-stone-700">
+                    獨立網址：/admin
+                  </span>
+                </div>
+                <p className="text-[11px] text-stone-400">
+                  中山醫學大學二手物品交換與漂書平台・系統營運中心
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => navigateTo('/')}
+              className="px-4 py-2 rounded-lg bg-csmu hover:bg-csmu-dark text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-sm"
+            >
+              <span>返回前台二手交換平台</span>
+              <span>→</span>
+            </button>
+          </div>
+        </header>
+
+        {/* Toast Notification */}
+        {toastMessage && (
+          <div className="fixed bottom-5 right-5 z-50 max-w-md px-4 py-3 rounded-xl bg-ink text-white text-xs font-bold shadow-2xl border border-stone-700 flex items-center gap-2.5">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>{toastMessage}</span>
+          </div>
+        )}
+
+        {/* Standalone Admin Body */}
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+          <AdminDashboardView
+            reports={reports}
+            users={users}
+            products={products}
+            announcements={announcements}
+            onForceUnlistProduct={(productId, reportId) => {
+              setProducts((prev) =>
+                prev.map((p) =>
+                  p.id === productId ? { ...p, status: '已下架' } : p
+                )
+              );
+              if (reportId) {
+                setReports((prev) =>
+                  prev.map((r) =>
+                    r.id === reportId ? { ...r, status: '已強制下架商品' } : r
+                  )
+                );
+              }
+              showToast('⛔ 已強制下架該違規商品！');
+            }}
+            onUpdateUserAccountStatus={(userId, status, warningNote, reportId) => {
+              setUsers((prev) =>
+                prev.map((u) =>
+                  u.id === userId
+                    ? { ...u, accountStatus: status, warningNote }
+                    : u
+                )
+              );
+              if (reportId) {
+                setReports((prev) =>
+                  prev.map((r) =>
+                    r.id === reportId ? { ...r, status: '已記警告/停權' } : r
+                  )
+                );
+              }
+              showToast(`✓ 已將該帳號狀態更新為「${status}」`);
+            }}
+            onResolveReport={(reportId, status) => {
+              setReports((prev) =>
+                prev.map((r) => (r.id === reportId ? { ...r, status } : r))
+              );
+              showToast('✓ 檢舉案件已更新為結案');
+            }}
+            onAddAnnouncement={(annData) => {
+              const nextAnn: AnnouncementBanner = {
+                ...annData,
+                id: `ann-${Date.now()}`,
+              };
+              setAnnouncements((prev) => [nextAnn, ...prev]);
+              setBannerIdx(0);
+              showToast('📢 已發布全站廣播公告，前台首頁輪播欄已即時生效！');
+            }}
+            onDeleteAnnouncement={(annId) => {
+              setAnnouncements((prev) => prev.filter((a) => a.id !== annId));
+              setBannerIdx(0);
+              showToast('已移除該則輪播公告');
+            }}
+            onReturnToMain={() => navigateTo('/')}
+          />
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-paper text-ink pb-16 md:pb-0">
       {/* Persistent Anti-Scam & Campus Identity Top Strip */}
@@ -707,20 +855,9 @@ export function App() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <span className="text-stone-400 hidden lg:inline">
+            <span className="text-stone-400 hidden sm:inline">
               中山醫學大學校內專用（@csmu.edu.tw Google 驗證）
             </span>
-            <button
-              type="button"
-              onClick={() => setActiveView('admin')}
-              className={`px-2 sm:px-2.5 py-0.5 rounded font-semibold transition-colors ${
-                activeView === 'admin'
-                  ? 'bg-terracotta text-white'
-                  : 'bg-stone-800 text-stone-300 hover:text-white'
-              }`}
-            >
-              ⚙️ 後台 ({reports.filter((r) => r.status === '待審核').length})
-            </button>
           </div>
         </div>
       </div>
@@ -1771,68 +1908,6 @@ export function App() {
             }}
           />
         )}
-
-        {/* ==================== VIEW 5: ADMIN DASHBOARD (後台管理系統) ==================== */}
-        {activeView === 'admin' && (
-          <AdminDashboardView
-            reports={reports}
-            users={users}
-            products={products}
-            announcements={announcements}
-            onForceUnlistProduct={(productId, reportId) => {
-              setProducts((prev) =>
-                prev.map((p) =>
-                  p.id === productId ? { ...p, status: '已下架' } : p
-                )
-              );
-              if (reportId) {
-                setReports((prev) =>
-                  prev.map((r) =>
-                    r.id === reportId ? { ...r, status: '已強制下架商品' } : r
-                  )
-                );
-              }
-              showToast('⛔ 已強制下架該違規商品！');
-            }}
-            onUpdateUserAccountStatus={(userId, status, warningNote, reportId) => {
-              setUsers((prev) =>
-                prev.map((u) =>
-                  u.id === userId
-                    ? { ...u, accountStatus: status, warningNote }
-                    : u
-                )
-              );
-              if (reportId) {
-                setReports((prev) =>
-                  prev.map((r) =>
-                    r.id === reportId ? { ...r, status: '已記警告/停權' } : r
-                  )
-                );
-              }
-              showToast(`✓ 已將該帳號狀態更新為「${status}」`);
-            }}
-            onResolveReport={(reportId, status) => {
-              setReports((prev) =>
-                prev.map((r) => (r.id === reportId ? { ...r, status } : r))
-              );
-              showToast('✓ 檢舉案件已更新為結案');
-            }}
-            onAddAnnouncement={(annData) => {
-              const nextAnn: AnnouncementBanner = {
-                ...annData,
-                id: `ann-${Date.now()}`,
-              };
-              setAnnouncements((prev) => [nextAnn, ...prev]);
-              setBannerIdx(0);
-              showToast('📢 已發布全站廣播公告，並已同步至首頁輪播欄第一則！');
-            }}
-            onDeleteAnnouncement={(annId) => {
-              setAnnouncements((prev) => prev.filter((a) => a.id !== annId));
-              setBannerIdx(0);
-              showToast('已移除該則輪播公告');
-            }}
-          />
-        )}
       </main>
 
       {/* Footer */}
@@ -1896,6 +1971,14 @@ export function App() {
                 className="px-2.5 py-1 rounded bg-paper-card border border-paper-border hover:border-csmu text-ink"
               >
                 🛡️ 防詐面交守則
+              </button>
+              <button
+                type="button"
+                onClick={() => navigateTo('/admin')}
+                className="px-2.5 py-1 rounded bg-stone-800 text-stone-200 hover:text-white border border-stone-700 font-semibold"
+                title="管理員獨立後台網址 (/admin)"
+              >
+                ⚙️ 管理員獨立後台 (/admin)
               </button>
             </div>
           </div>
